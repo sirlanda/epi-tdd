@@ -8,6 +8,6 @@ package hu.tigra.tutorial.epi;
 public class LimitCalculation {
 
     public int calculateLimit(int... points) {
-        return 15;
+        return (int) Math.round(100 - (100-points[0]) / 2.5 * 4);
     }
 }
