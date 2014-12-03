@@ -8,6 +8,6 @@ package hu.tigra.tutorial.epi;
 public class LimitCalculation {
 
     public int calculateLimit(int... points) {
-        return 110;
+        return 15;
     }
 }
