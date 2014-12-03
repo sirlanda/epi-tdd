@@ -3,8 +3,6 @@ package hu.tigra.tutorial.epi;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class LimitCalculationTest {
 
     LimitCalculation calculation;
@@ -25,7 +23,7 @@ public class LimitCalculationTest {
     public void testCalculateLimit75() throws Exception {
         int limit = calculation.calculateLimit(75);
         assert limit <= 68;
-        assert limit > 52;
+        assert limit >= 52;
     }
 
     @Test
@@ -33,5 +31,16 @@ public class LimitCalculationTest {
         int limit = calculation.calculateLimit(39, 75);
         assert limit <= 39;
         assert limit > 20;
+    }
+
+    @Test
+    public void testCalculateLimit100() throws Exception {
+        calculation.calculateLimit(100);
+    }
+
+    @Test
+    public void testCalculateLimit0() throws Exception {
+        calculation.calculateLimit(0);
+        calculation.calculateLimit(10);
     }
 }

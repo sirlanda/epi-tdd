@@ -10,39 +10,43 @@ import org.apache.commons.math3.stat.descriptive.moment.Mean;
 public class LimitCalculation {
 
     public int calculateLimit(int... points) {
-        double mean = 0.0;
         int oldLimit = 0;
-        int limit = 50;
+        int limit = 48;
         double[] marks = new double[points.length];
 
-        while ((mean < Math.E) || (mean > Math.PI)) {
+        while (limit != oldLimit) {
             for (int i = 0; i < points.length; i++) {
                 marks[i] = 0.0 + getMark(limit, points[i]);
             }
 
-            mean = new Mean().evaluate(marks, 0, marks.length);
+            final double mean = new Mean().evaluate(marks, 0, marks.length);
 
             int tmpLimit = limit;
             if (mean < Math.E) {
-                limit = limit - (Math.abs(limit - oldLimit)) / 2;
+                limit = limit - getHalfOfInterval(oldLimit, limit);
+                limit += limit % 4;
             } else if (mean > Math.PI) {
-                limit = limit + (Math.abs(limit - oldLimit)) / 2;
+                limit = limit + getHalfOfInterval(oldLimit, limit);
+                limit -= limit % 4;
             }
             oldLimit = tmpLimit;
         }
         return limit;
     }
 
+    private int getHalfOfInterval(int oldLimit, int limit) {
+        return (Math.abs(limit - oldLimit)) / 2;
+    }
+
     private int getMark(int limit, int point) {
         if (limit > point)
             return 1;
-        else if (limit + (100 - limit)/4 > point)
-            return 2;
-        else if (limit + (100 - limit)/2 > point)
-            return 3;
-        else if (limit + (100 - limit)/4*3 > point)
-            return 4;
-        else
-            return 5;
+        else {
+            final int div = (100 - limit) / 4;
+
+            return div == 0
+                    ? 5
+                    : (point - limit) / div + 2;
+        }
     }
 }
