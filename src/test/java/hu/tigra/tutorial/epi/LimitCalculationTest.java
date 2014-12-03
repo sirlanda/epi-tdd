@@ -27,4 +27,11 @@ public class LimitCalculationTest {
         assert limit <= 68;
         assert limit > 52;
     }
+
+    @Test
+    public void testCalculateLimit40and75() throws Exception {
+        int limit = calculation.calculateLimit(39, 75);
+        assert limit <= 39;
+        assert limit > 20;
+    }
 }
